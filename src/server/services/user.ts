@@ -1,13 +1,8 @@
 import { env } from "@/env";
+import { ErrorEmailAlreadyExists } from "@/lib/errors";
 import { AuthSchema, NewUserSchema } from "@/lib/validations/user";
 import { PrismaClient, User } from "@prisma/client";
 import bcrypt from "bcrypt";
-
-export class ErrorEmailAlreadyExists extends Error {
-  constructor() {
-    super("email already exists");
-  }
-}
 
 export const authenticate = async (
   db: PrismaClient,
