@@ -5,10 +5,11 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import DiscordProvider from "next-auth/providers/discord";
-
+import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "@/env";
 import { db } from "@/server/db";
+import { authSchema } from "@/lib/validations/user";
+import { authenticate } from "@/server/services/user";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -37,20 +38,37 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  session: { strategy: "jwt" },
   callbacks: {
-    session: ({ session, user }) => ({
+    jwt: async ({ token, user }) => {
+      if (typeof user === "undefined") return token;
+      return {
+        ...token,
+        id: user.id,
+      };
+    },
+    session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        id: token.id,
       },
     }),
   },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text", placeholder: "tarek@gmail.com" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (credentials, _req) => {
+        // will throw error and fails authentication
+        const parsedCredentials = authSchema.parse(credentials);
+        const user = await authenticate(db, parsedCredentials);
+        return user;
+      },
     }),
     /**
      * ...add more providers here.
