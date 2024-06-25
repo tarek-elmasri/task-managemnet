@@ -8,7 +8,10 @@ import {
 
 const authMiddleware = withAuth({
   callbacks: {
-    authorized: ({ token }) => token != null,
+    authorized: ({ token, req }) => {
+      // excluding register page from authorization
+      return req.nextUrl.pathname === "/register" || token != null;
+    },
   },
   pages: {
     signIn: "/",

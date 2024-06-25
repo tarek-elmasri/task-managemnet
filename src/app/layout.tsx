@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import AuthProvider from "@/providers/auth-provider";
 import { getServerAuthSession } from "@/server/auth";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata = {
   title: "Task Management",
@@ -35,6 +36,7 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <Toaster />
               {children}
             </ThemeProvider>
           </TRPCReactProvider>

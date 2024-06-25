@@ -37,15 +37,18 @@ export const authenticate = async (
  * @param userData NewUserSchema
  */
 export const createUser = async (db: PrismaClient, userData: NewUserSchema) => {
+  const { name, email, password } = userData;
   const emailExists = await db.user.findUnique({
-    where: { email: userData.email.toLowerCase() },
+    where: { email: email.toLowerCase() },
   });
   if (emailExists) throw new ErrorEmailAlreadyExists();
 
+  const hashedPassword = await bcrypt.hash(password + env.NEXTAUTH_SECRET, 12);
   return db.user.create({
     data: {
-      ...userData,
-      email: userData.email.toLowerCase(),
+      name,
+      email: email.toLowerCase(),
+      password: hashedPassword,
     },
     select: {
       id: true,

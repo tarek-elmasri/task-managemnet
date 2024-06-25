@@ -2,7 +2,7 @@
 
 import { authSchema } from "@/lib/validations/user";
 import type { AuthSchema } from "@/lib/validations/user";
-import { ControllerRenderProps, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -15,14 +15,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+
+import Spinner from "@/components/ui/spinner";
 const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
 
   const callbackUrl = searchParams.get("callbackUrl") ?? "/tasks";
 
@@ -32,15 +33,15 @@ const LoginForm = () => {
       email: "",
       password: "",
     },
+    shouldFocusError: true,
   });
 
   const showError = () => {
-    setIsError(true);
+    form.setError("email", { message: "" });
+    form.setError("password", { message: "invalid email or password" });
     setIsLoading(false);
     form.setFocus("email");
   };
-
-  const clearError = () => setIsError(false);
 
   const onSubmit = (data: AuthSchema) => {
     setIsLoading(true);
@@ -62,12 +63,6 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        {isError && (
-          <span className="text-sm text-red-600">
-            * Invalid Email or Password!
-          </span>
-        )}
-
         <FormField
           control={form.control}
           name="email"
@@ -80,7 +75,7 @@ const LoginForm = () => {
                   type="email"
                   {...field}
                   onChange={(e) => {
-                    clearError();
+                    form.clearErrors();
                     field.onChange(e);
                   }}
                 />
@@ -102,7 +97,7 @@ const LoginForm = () => {
                   type="password"
                   {...field}
                   onChange={(e) => {
-                    clearError();
+                    form.clearErrors();
                     field.onChange(e);
                   }}
                 />
@@ -112,12 +107,12 @@ const LoginForm = () => {
           )}
         />
 
-        <Button type="submit" className="mt-6 w-full">
-          Login
+        <Button type="submit" className="mt-6 w-full" disabled={isLoading}>
+          {isLoading ? <Spinner className="h-3 w-3" /> : "Login"}
         </Button>
         <p className="mt-1 text-xs">
           Dont have account?{" "}
-          <Link className="font-semibold hover:underline" href={"/register"}>
+          <Link className="font-semibold hover:underline" href="/register">
             Create Account.
           </Link>
         </p>
