@@ -5,6 +5,7 @@ import {
   deleteTask,
   findAll,
   findById,
+  toggleCompleted,
   update,
 } from "@/server/services/task";
 import { idSchema } from "@/lib/validations/shared";
@@ -75,4 +76,12 @@ export const taskRouter = createTRPCRouter({
       return update(db, id, user.id, data);
     },
   ),
+
+  toggleCompleted: protectedProcedure
+    .input(idSchema)
+    .mutation(async ({ input, ctx: { db, session } }) => {
+      const task = await findById(db, input.id, session.user.id);
+      if (!task) throw new ErrorNotFound();
+      return toggleCompleted(db, input.id, session.user.id, !task.completed);
+    }),
 });

@@ -1,3 +1,4 @@
+import { ErrorNotFound } from "@/lib/errors";
 import type { TaskQuerySchema, TaskSchema } from "@/lib/validations/task";
 import type { PrismaClient } from "@prisma/client";
 
@@ -61,5 +62,17 @@ export const update = async (
       userId,
     },
     data,
+  });
+};
+
+export const toggleCompleted = async (
+  db: PrismaClient,
+  id: string,
+  userId: string,
+  status: boolean,
+) => {
+  return db.task.update({
+    where: { id, userId },
+    data: { completed: status },
   });
 };

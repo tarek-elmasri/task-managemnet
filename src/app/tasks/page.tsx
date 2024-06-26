@@ -1,7 +1,7 @@
 import WavesSVG from "@/components/waves-svg";
 import Tasks from "./_compoents/tasks";
 
-export default async function TasksPage() {
+export default function TasksPage() {
   return (
     <main className="space-y-6">
       <section className="space-y-4">
