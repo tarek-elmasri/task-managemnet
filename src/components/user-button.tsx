@@ -15,21 +15,22 @@ import { Power } from "lucide-react";
 const UserButton = () => {
   const { user, signOut, isLoading } = useUser();
   if (isLoading) return null;
+  if (!user) return null;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full  ring-offset-4 ring-offset-secondary focus-within:outline-none focus-within:ring-2 focus-within:ring-primary hover:ring-2 hover:ring-primary">
         <Avatar>
           <AvatarFallback className="bg-primary font-semibold">
-            {user?.name?.charAt(0).toUpperCase() ??
-              user?.email?.charAt(0).toUpperCase()}
+            {user.name?.charAt(0).toUpperCase() ??
+              user.email?.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
         <DropdownMenuLabel className="text-muted-foreground">
-          <p>{user?.name}</p>
-          <p>{user?.email}</p>
+          <p>{user.name}</p>
+          <p>{user.email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 

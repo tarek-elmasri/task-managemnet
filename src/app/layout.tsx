@@ -7,6 +7,7 @@ import AuthProvider from "@/providers/auth-provider";
 import { getServerAuthSession } from "@/server/auth";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import Header from "@/components/header";
 
 export const metadata = {
   title: "Task Management",
@@ -37,7 +38,10 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               <Toaster />
-              {children}
+              <div className="mx-auto min-h-screen w-full max-w-7xl space-y-6">
+                <Header />
+                <main className="p-4 md:px-8">{children}</main>
+              </div>
             </ThemeProvider>
           </TRPCReactProvider>
         </AuthProvider>

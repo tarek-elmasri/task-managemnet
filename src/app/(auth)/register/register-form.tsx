@@ -85,7 +85,7 @@ const RegisterForm = () => {
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="mt-6">
+            <FormItem className="mt-4">
               <FormLabel>Name:</FormLabel>
               <FormControl>
                 <Input required {...field} />
@@ -99,7 +99,7 @@ const RegisterForm = () => {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="mt-6">
+            <FormItem className="mt-2">
               <FormLabel>Email:</FormLabel>
               <FormControl>
                 <Input required type="email" {...field} />
@@ -113,7 +113,7 @@ const RegisterForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="mt-6">
+            <FormItem className="mt-2">
               <FormLabel>Password:</FormLabel>
               <FormControl>
                 <Input required type="password" {...field} />
@@ -125,15 +125,15 @@ const RegisterForm = () => {
 
         <Button
           type="submit"
-          className="mt-6 w-full"
+          className="mt-4 w-full"
           disabled={isPending || isLoading}
         >
-          {isPending ? <Spinner className="h-3 w-3" /> : "Register"}
+          {isPending ? <Spinner className="h-3 w-3" /> : "Sign Up"}
         </Button>
-        <p className="mt-1 text-xs">
-          Already have account?{" "}
-          <Link className="font-semibold hover:underline" href={"/"}>
-            Login.
+        <p className="mt-4 text-center text-sm">
+          Already have an account?{" "}
+          <Link className="font-semibold underline" href={"/"}>
+            Login
           </Link>
         </p>
       </form>

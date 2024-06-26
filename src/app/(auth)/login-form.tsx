@@ -67,7 +67,7 @@ const LoginForm = () => {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="mt-6">
+            <FormItem className="mt-4">
               <FormLabel>Email:</FormLabel>
               <FormControl>
                 <Input
@@ -89,7 +89,7 @@ const LoginForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="mt-6">
+            <FormItem className="mt-2">
               <FormLabel>Password:</FormLabel>
               <FormControl>
                 <Input
@@ -110,10 +110,10 @@ const LoginForm = () => {
         <Button type="submit" className="mt-6 w-full" disabled={isLoading}>
           {isLoading ? <Spinner className="h-3 w-3" /> : "Login"}
         </Button>
-        <p className="mt-1 text-xs">
-          Dont have account?{" "}
-          <Link className="font-semibold hover:underline" href="/register">
-            Create Account.
+        <p className="mt-4 text-center text-sm">
+          Dont have an account?{" "}
+          <Link className="font-semibold underline" href="/register">
+            Sign Up
           </Link>
         </p>
       </form>
