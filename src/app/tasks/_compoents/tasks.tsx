@@ -9,6 +9,7 @@ import { columns } from "./columns";
 import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FilterSelect, { type FilterKeys } from "./filter-select";
+import TableLoader from "@/components/table-loader";
 
 const Tasks = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -24,7 +25,7 @@ const Tasks = () => {
     );
   }, [tasks, filterQuery]);
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <TableLoader />;
   if (isError) return <p>Failed to connect to server. please try again!</p>;
   if (!tasks?.length) return <NoTasks />;
 
