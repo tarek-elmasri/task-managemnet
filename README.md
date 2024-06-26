@@ -1,29 +1,66 @@
-# Create T3 App
+# TMA ( Task Management App )
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+a basic application to manage daily tasks built with T3 stack.
 
-## What's next? How do I make an app with this?
+## Installation
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+### Prerequisites
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Node.js installed on your machine
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- a PostgreSQL database server running
 
-## Learn More
+### Clone Repository
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- clone repository to your local maching:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+```
+git clone git@github.com:tarek-elmasri/task-managemnet.git
+cd task-managemnet
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Configure Environment
 
-## How do I deploy this?
+- rename or copy `.env-example` to `.env`
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- Update Enviromental variables:
+
+| KEY              | VALUE           | Description                                 |
+| ---------------- | --------------- | ------------------------------------------- |
+| DATABASE_URL     | posdgres_db_url | string representation of db credentitials   |
+| NEXTAUTH_SECRET  | secret_key      | secret key for next auth encryption         |
+| NEXTAUTH_URL     | localhost:3000  | root host url                               |
+| ---------------- | --------------- | ------------------------------------------- |
+
+### Install Dependencies
+
+- Install dependencies by running the following command in the terminal:
+
+```
+npm install
+```
+
+### Database Setup
+
+- create the database and perform migrations by running the following command in the terminal.
+
+```
+npm run db:push
+```
+
+### Start Project
+
+- to run the application in dev mode, run the following command:
+
+```
+npm run dev
+```
+
+## Technologies Used
+
+- T3 stack ( Next.js, Typescript, tRPC)
+- Prisma
+- Tailwindcss
+- Shadcn Components
+- React Hook Form
+- Zod
