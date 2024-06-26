@@ -24,7 +24,8 @@ export default async function middleware(req: NextRequest) {
 
   // Redirect if user is already logged in
   if (
-    (pathname === "/" && token?.email) ??
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    (pathname === "/" && token?.email) ||
     (pathname === "/register" && token?.email)
   ) {
     const url = req.nextUrl.clone();
