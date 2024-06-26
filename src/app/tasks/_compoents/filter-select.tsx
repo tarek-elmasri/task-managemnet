@@ -32,9 +32,6 @@ const FilterSelect = ({
               {value}
             </SelectItem>
           ))}
-          {/* <SelectItem value="all">All</SelectItem>
-          <SelectItem value="completed">Fullfilled</SelectItem>
-          <SelectItem value="pending">Pending</SelectItem> */}
         </SelectGroup>
       </SelectContent>
     </Select>

@@ -10,40 +10,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useToast } from "@/components/ui/use-toast";
+
+import useDeleteTask from "@/hooks/use-delete-task";
 import useToggleCompleted from "@/hooks/use-toggle-completed";
-import { api } from "@/trpc/react";
+
 import type { Task } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import { Fragment, useState } from "react";
 
 const CellActions = ({ task }: { task: Task }) => {
-  const utils = api.useUtils();
-  const { toast } = useToast();
-
   const [openModal, setOpenModal] = useState(false);
-  const { mutateAsync: deleteTask, isPending: isDeleting } =
-    api.tasks.delete.useMutation({
-      onSuccess: () => {
-        utils.tasks.findAll.invalidate();
-      },
-    });
 
   const { mutate: toggleCompleted, isPending: isTogglingCompleted } =
     useToggleCompleted();
 
-  const handleDelete = async () => {
-    try {
-      await deleteTask({ id: task.id });
-      toast({ description: "Task deleted successfully!" });
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        description:
-          "An error has occured while deleting task. please try again!",
-      });
-    }
-  };
+  const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask();
 
   return (
     <Fragment>
@@ -73,7 +54,10 @@ const CellActions = ({ task }: { task: Task }) => {
           <DropdownMenuItem onClick={() => setOpenModal(true)}>
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem disabled={isDeleting} onClick={handleDelete}>
+          <DropdownMenuItem
+            disabled={isDeleting}
+            onClick={() => deleteTask({ id: task.id })}
+          >
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
