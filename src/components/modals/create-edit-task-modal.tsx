@@ -8,11 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { FC } from "react";
-import { api } from "@/trpc/react";
+import type { FC } from "react";
 import { useForm } from "react-hook-form";
-import { TaskSchema, taskSchema } from "@/lib/validations/task";
-import { IdSchema } from "@/lib/validations/shared";
+import { type TaskSchema, taskSchema } from "@/lib/validations/task";
+import { type IdSchema } from "@/lib/validations/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -25,8 +24,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import { TRPCClientError } from "@trpc/client";
 import { z } from "zod";
 import useCreateTask from "@/hooks/use-create-task";
 import useUpdateTask from "@/hooks/use-update-task";
@@ -41,9 +38,6 @@ const CreateOrEditTaskModal: FC<CreateOrEditTaskModalProps> = ({
   task = {},
   onClose,
 }) => {
-  const { toast } = useToast();
-  const utils = api.useUtils();
-
   const { mutate: createTask, isPending: isCreating } = useCreateTask();
 
   const { mutate: updateTask, isPending: isUpdating } = useUpdateTask();

@@ -39,9 +39,9 @@ const useDeleteTask = () => {
     onSuccess: () => {
       toast({ description: "Task deleted successfully!" });
     },
-    onSettled: (data) => {
-      utils.tasks.findAll.invalidate();
-      utils.tasks.findById.invalidate({ id: data?.id });
+    onSettled: async (data) => {
+      await utils.tasks.findAll.invalidate();
+      await utils.tasks.findById.invalidate({ id: data?.id });
     },
   });
 

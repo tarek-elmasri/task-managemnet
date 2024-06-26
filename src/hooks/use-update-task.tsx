@@ -40,9 +40,9 @@ const useUpdateTask = () => {
     onSuccess: () => {
       toast({ description: "Task updated successfully!" });
     },
-    onSettled: (task) => {
-      utils.tasks.findAll.invalidate();
-      utils.tasks.findById.invalidate({ id: task?.id });
+    onSettled: async (task) => {
+      await utils.tasks.findAll.invalidate();
+      await utils.tasks.findById.invalidate({ id: task?.id });
     },
   });
 

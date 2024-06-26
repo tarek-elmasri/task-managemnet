@@ -1,4 +1,3 @@
-import { ErrorNotFound } from "@/lib/errors";
 import type { TaskQuerySchema, TaskSchema } from "@/lib/validations/task";
 import type { PrismaClient } from "@prisma/client";
 

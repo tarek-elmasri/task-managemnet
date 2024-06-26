@@ -1,7 +1,7 @@
 import { env } from "@/env";
 import { ErrorEmailAlreadyExists } from "@/lib/errors";
-import { AuthSchema, NewUserSchema } from "@/lib/validations/user";
-import { PrismaClient, User } from "@prisma/client";
+import type { AuthSchema, NewUserSchema } from "@/lib/validations/user";
+import type { PrismaClient, User } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 export const authenticate = async (
@@ -14,7 +14,7 @@ export const authenticate = async (
     },
   });
 
-  if (!user || !user.password) return null;
+  if (!user?.password) return null;
 
   const isAuthenticated = await bcrypt.compare(
     credentials.password + env.NEXTAUTH_SECRET,

@@ -6,7 +6,7 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { env } from "@/env";
+
 import { db } from "@/server/db";
 import { authSchema } from "@/lib/validations/user";
 import { authenticate } from "@/server/services/user";

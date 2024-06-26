@@ -33,8 +33,8 @@ const useCreateTask = () => {
     onSuccess: () => {
       toast({ description: "Task created successfully!" });
     },
-    onSettled: () => {
-      utils.tasks.findAll.invalidate();
+    onSettled: async () => {
+      await utils.tasks.findAll.invalidate();
     },
   });
 

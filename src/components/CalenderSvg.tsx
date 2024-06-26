@@ -44,4 +44,6 @@ const CalenderSVG = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
   },
 );
 
+CalenderSVG.displayName = "CalenderSVG";
+
 export default CalenderSVG;
