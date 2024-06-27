@@ -16,7 +16,7 @@ a basic application to manage daily tasks built with T3 stack.
 - clone repository to your local maching:
 
 ```
-git clone git@github.com:tarek-elmasri/task-managemnet.git
+git clone https://github.com/tarek-elmasri/task-managemnet
 cd task-managemnet
 ```
 
